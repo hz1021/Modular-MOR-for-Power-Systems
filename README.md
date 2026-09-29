@@ -69,7 +69,7 @@ generate sys_j_BT.mat and sys_j_AA.mat
 main_sub_118_bus
         ↓
 plotFun
-&darr
+&darr;
 plotTest
 ```
 
