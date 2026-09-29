@@ -120,7 +120,7 @@ plotTest
 
 The provided validation cases include:
 
-- an active-power reference perturbation;
+- an active-power reference perturbation.
 - a self-clearing grid-following inverter blocking event.
 
 For the self-clearing case, grid-following inverter 2 in subsystem 3 is blocked at 0.10 s and restored at 0.11 s, corresponding to a 10 ms blocking interval. The event is implemented as temporary suppression of the selected converter injection followed by recovery, rather than as a permanent topology change.
