@@ -69,7 +69,7 @@ generate sys_j_BT.mat and sys_j_AA.mat
 main_sub_118_bus
         ↓
 plotFun
-$\downarrow$
+        ↓
 plotTest
 ```
 
@@ -82,14 +82,14 @@ plotTest
 ## Project files
 
 - `modularMOR_main.m` — main three-subsystem modular MOR and evaluation script.
-- `IBR_modelGenerator.m` — constructs the subsystem, interconnection, and interconnected models.
-- `DK_iteration_adapt.m` — robust-performance calculation used to derive local subsystem accuracy requirements.
-- `greedyLoewner.m` — greedy point-selection procedure used in the Loewner reduction workflow.
-- `mimoLoewnerWeightedAAA_stableStrict.m` — stable, frequency-weighted MIMO Loewner/AAA implementation.
-- `linSys1.mat`, `linSys2.mat`, and `linSys3.mat` — full-order linear subsystem models used as inputs to the modular MOR workflow.
-- `main_sub_118_bus.m` — initializes the nonlinear 118-bus case and linearises the Simulink model.
+- `IBR_modelGenerator.m` — collects the external-area subsystems, and constructs the dynamic interface and interconnected models.
+- `DK_iteration_adapt.m` — robust-performance calculation used to derive local reduction accuracy requirements for subsystems.
+- `greedyLoewner.m` — greedy Loewner method.
+- `mimoLoewnerWeightedAAA_stableStrict.m` — Loewner framework implementation, which produces stable ROM and applies to MIMO cases.
+- `linSys1.mat`, `linSys2.mat`, and `linSys3.mat` — full-order linearised subsystem models at the investigated operating mode.
+- `main_sub_118_bus.m` — initialises the nonlinear 118-bus case and linearises the Simulink model.
 - `subsystem_118_bus.slx` — main nonlinear 118-bus Simulink model.
-- `subsystem_118_bus_self_clearing_blocking.slx` — Simulink model for the temporary inverter-blocking example.
+- `subsystem_118_bus_self_clearing_blocking.slx` — Simulink model for the self-clearing inverter-blocking example.
 - `plotFun.m` — runs the time-domain validation cases and generates the figures.
 - `case118_system*.xlsx` — 118-bus case-study network data.
 - `nominal*.mat` — equilibrium data used by the Simulink validation.
@@ -102,7 +102,7 @@ sys_j_BT.mat
 sys_j_AA.mat
 ```
 
-contain the subsystem ROMs obtained from the balanced-truncation and Loewner/AAA workflows, respectively.
+contain the subsystem ROMs obtained from the (frequency weighted) balanced truncation and greedy Loewner workflows, respectively.
 
 ## 118-bus validation
 
@@ -112,10 +112,11 @@ The nonlinear 118-bus case study is initialized using
 main_sub_118_bus
 ```
 
-and the time-domain simulations are run using
+and the time-domain/frequency-domain simulations are run using
 
 ```matlab
 plotFun
+plotTest
 ```
 
 The provided validation cases include:
@@ -123,37 +124,15 @@ The provided validation cases include:
 - an active-power reference perturbation;
 - a self-clearing grid-following inverter blocking event.
 
-For the self-clearing case, grid-following inverter 2 in subsystem 3 is blocked at `0.10 s` and restored at `0.11 s`, corresponding to a 10 ms blocking interval. The event is implemented as temporary suppression of the selected converter injection followed by recovery, rather than as a permanent topology change.
+For the self-clearing case, grid-following inverter 2 in subsystem 3 is blocked at 0.10 s and restored at 0.11 s, corresponding to a 10 ms blocking interval. The event is implemented as temporary suppression of the selected converter injection followed by recovery, rather than as a permanent topology change.
 
 ## Reusing generated ROMs
 
-After `modularMOR_main.m` has been run once, `sys_j_BT.mat` and `sys_j_AA.mat` can be retained and reused when only the Simulink validation needs to be repeated.
-
-For example:
-
-```matlab
-startup_project
-config_file
-
-load linSys1.mat
-load linSys2.mat
-load linSys3.mat
-
-G = {linSys1; linSys2; linSys3};
-[sys_j, ~, ~] = IBR_modelGenerator(G);
-
-load sys_j_BT.mat
-load sys_j_AA.mat
-
-main_sub_118_bus
-plotFun
-```
-
-This avoids repeating the full robust-performance and MOR computation.
+After `modularMOR_main.m` has been run once, `sys_j_BT.mat` and `sys_j_AA.mat` can be retained and reused when only the Simulink validation needs to be repeated. This avoids repeating the full robust-performance and MOR computation.
 
 ## Maintainer & Contributing
 
-- Maintainer: **Hanqing Zhang** — [MAC-X Lab](https://giordanoscarciotti.com/mac-x-lab/).
+- Maintainer: **Hanqing Zhang** — [MAC-X Lab](https://giordanoscarciotti.com/mac-x-lab/) and **Pudong Ge** - [Imperial](https://profiles.imperial.ac.uk/pudong.ge19).
 - Contributions and bug reports are welcome via issues or pull requests.
 
 ## License
