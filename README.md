@@ -132,7 +132,7 @@ After `modularMOR_main.m` has been run once, `sys_j_BT.mat` and `sys_j_AA.mat` c
 
 ## Maintainer & Contributing
 
-- Maintainer: **Hanqing Zhang** — [MAC-X Lab](https://giordanoscarciotti.com/mac-x-lab/) and **Pudong Ge** - [Imperial](https://profiles.imperial.ac.uk/pudong.ge19).
+- Maintainer: **Hanqing Zhang** - [MAC-X Lab](https://giordanoscarciotti.com/mac-x-lab/) and **Pudong Ge** - [Imperial](https://profiles.imperial.ac.uk/pudong.ge19).
 - Contributions and bug reports are welcome via issues or pull requests.
 
 ## License
@@ -142,3 +142,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Citation
 
 If you use this repository in academic work, please cite the associated publication. The full citation will be added once the final bibliographic information is available.
+
+## Acknowledgments
+
+The authors would like to thank [Dr. Fahim Shakib](https://www.tue.nl/en/research/researchers/fahim-shakib), [Dr. Luuk Poort](https://www.linkedin.com/in/luuk-poort/), and [Dr. Lars A. L. Janssen](https://www.linkedin.com/in/lars-janssen/) for their dedicated help with building up the modular MOR framework given in this project.
