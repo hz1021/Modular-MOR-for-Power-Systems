@@ -23,8 +23,7 @@ The main modular MOR workflow requires:
 
 The 118-bus validation workflow additionally requires:
 
-- Simulink;
-- Simulink Control Design, for model linearisation;
+- Simulink, and Simulink Control Design for model linearisation.
 - [MATPOWER](https://matpower.org/) on the MATLAB path.
 
 The supplied Simulink models were saved using MATLAB/Simulink R2025b.
