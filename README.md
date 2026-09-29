@@ -145,4 +145,4 @@ If you use this repository in academic work, please cite the associated publicat
 
 ## Acknowledgments
 
-The authors would like to thank [Dr. Fahim Shakib](https://www.tue.nl/en/research/researchers/fahim-shakib), [Dr. Luuk Poort](https://www.linkedin.com/in/luuk-poort/), and [Dr. Lars A. L. Janssen](https://www.linkedin.com/in/lars-janssen/) for their dedicated help with building up the modular MOR framework given in this project.
+The authors would like to thank [Dr. Mohammad Fahim Shakib](https://www.tue.nl/en/research/researchers/fahim-shakib), [Dr. Luuk Poort](https://www.linkedin.com/in/luuk-poort/), and [Dr. Lars A. L. Janssen](https://www.linkedin.com/in/lars-janssen/) for their dedicated help with building up the modular MOR framework given in this project.
