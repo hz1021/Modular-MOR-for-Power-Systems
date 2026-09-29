@@ -1,14 +1,14 @@
 # Modular Model Order Reduction for Power Systems
 
-MATLAB/Simulink scripts for reducing interconnected power-system models while preserving their frequency-domain behaviour. The primary workflow considers a three-subsystem model consisting of two external areas and one study area, computes local accuracy requirements from a global robust-performance specification, reduces the subsystems independently, and reconnects them.
+MATLAB/Simulink scripts for reducing interconnected power system models while preserving their dynamical behaviour. The primary workflow considers a three-subsystem model consisting of two external areas and one study area, computes local reduction accuracy requirements from a global reduction accuracy specification, reduces the subsystems independently, and reconnects them.
 
-The repository includes two reduction approaches: frequency-weighted balanced truncation and a greedy, frequency-weighted MIMO Loewner/AAA method. It also contains a nonlinear 118-bus Simulink case study for time-domain validation.
+The repository includes two reduction approaches: (frequency weighted) balanced truncation and a greedy Loewner method. It also contains a nonlinear 118-bus Simulink case study for time-domain validation.
 
 ## Why use this project
 
 - Applies modular reduction to interconnected systems rather than reducing only the assembled model.
 - Translates a global frequency-weighted approximation requirement into subsystem-level specifications.
-- Includes frequency-weighted balanced truncation and a stable weighted Loewner/AAA method for comparison.
+- Includes (frequency-weighted) balanced truncation and a greedy Loewner method for comparison.
 - Reassembles the subsystem ROMs and evaluates the resulting interconnected approximation.
 - Includes a separate nonlinear 118-bus Simulink and power-flow validation workflow.
 - Includes both reference-perturbation and self-clearing inverter-blocking time-domain examples.
@@ -17,14 +17,9 @@ The repository includes two reduction approaches: frequency-weighted balanced tr
 
 The main modular MOR workflow requires:
 
-- MATLAB;
-- Control System Toolbox;
-- Robust Control Toolbox;
-- Parallel Computing Toolbox, because the robust-performance calculation uses `parfor`;
-- [YALMIP](https://yalmip.github.io/);
-- [MOSEK](https://www.mosek.com/).
-
-`DK_iteration_adapt.m` configures YALMIP to use MOSEK.
+- MATLAB with Control System Toolbox and Robust Control Toolbox.
+- Parallel Computing Toolbox, because the robust-performance calculation uses `parfor`.
+- [YALMIP](https://yalmip.github.io/) and a working [MOSEK](https://www.mosek.com/) installation/license.
 
 The 118-bus validation workflow additionally requires:
 
@@ -32,26 +27,36 @@ The 118-bus validation workflow additionally requires:
 - Simulink Control Design, for model linearisation;
 - [MATPOWER](https://matpower.org/) on the MATLAB path.
 
-The supplied Simulink models were saved using MATLAB/Simulink R2025b. Earlier compatible releases may also work but have not been verified.
+The supplied Simulink models were saved using MATLAB/Simulink R2025b.
 
 ## Get started
 
-1. Clone or download the repository and open MATLAB in the repository root.
+1. Clone or download the repository and open MATLAB in the its root directory.
+   
+2. Install and configure the required MATLAB products, YALMIP, and MOSEK. Confirm that `yalmip` and `mosek` are available to MATLAB.
 
-2. Run
-
-```matlab
-startup_project
-```
-
-`startup_project` adds the project folders to the MATLAB path and places Simulink cache/code-generation files in `simulink_files/`.
-
-3. For a complete first-time reproduction, run the following scripts sequentially in the **same MATLAB session**:
+3. Run the main modular model order reduction workflow
 
 ```matlab
 modularMOR_main
+```
+`modularMOR_main` performs the robust-performance calculation, computes the local subsystem requirements, applies the two MOR approaches, reconnects the reduced subsystem models, and evaluates the resulting interconnected ROMs.
+
+It also generates
+
+```text
+sys_j_BT.mat
+sys_j_AA.mat
+```
+
+in the current working directory. These are generated outputs of the MOR workflow, not input files required for the first run.
+
+4. For a complete first-time reproduction, run the following scripts sequentially in the **same MATLAB session**:
+
+```matlab
 main_sub_118_bus
 plotFun
+plotTest
 ```
 
 The workflow is therefore
@@ -64,22 +69,15 @@ generate sys_j_BT.mat and sys_j_AA.mat
 main_sub_118_bus
         ↓
 plotFun
+&darr
+plotTest
 ```
-
-`modularMOR_main` performs the robust-performance calculation, computes the local subsystem requirements, applies the two MOR approaches, reconnects the reduced subsystem models, and evaluates the resulting interconnected ROMs.
-
-It also generates
-
-```text
-sys_j_BT.mat
-sys_j_AA.mat
-```
-
-in the current working directory. These are generated outputs of the MOR workflow, not input files required for the first run.
 
 `main_sub_118_bus` prepares the nonlinear 118-bus operating point and model data required by the Simulink validation.
 
 `plotFun` runs the time-domain validation examples and generates the corresponding comparison figures.
+
+`plotTest` runs the frequency-domain validation examples and generates the computational comparison results.
 
 ## Project files
 
