@@ -20,6 +20,7 @@ The main modular MOR workflow requires:
 - MATLAB with Control System Toolbox and Robust Control Toolbox.
 - Parallel Computing Toolbox, because the robust-performance calculation uses `parfor`.
 - [YALMIP](https://yalmip.github.io/) and a working [MOSEK](https://www.mosek.com/) installation/license.
+- [cprintf](https://uk.mathworks.com/matlabcentral/fileexchange/24093-cprintf-display-formatted-colored-text-in-command-window) utility in MATLAB.
 
 The 118-bus validation workflow additionally requires:
 
